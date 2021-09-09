@@ -8,6 +8,7 @@ from datetime import datetime
 now = datetime.now()
 load_dotenv()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
 IPS = [
         os.getenv('BTS_200'),
         os.getenv('BTS_220'),
@@ -155,13 +156,10 @@ def getActiveDeptor(query=None):
                             'creation-time':c['creation-time']
                         })
             
-            morososList.append({'bts':allBts, 'users':usersOnMora})
-        
+            morososList.append({'bts':allBts, 'users':usersOnMora})  
 
-    dir='C:/Users/Servicio al Cliente/Desktop'
-    file_name = "export.json"
-    
-    with open(os.path.join(dir, file_name), 'w') as file:
-                json.dump(morososList, file)
+    toJson(morososList,'Export')
 
 getActiveDeptor()
+#deptorProfile()
+#defaultProfile()
