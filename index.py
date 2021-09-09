@@ -1,4 +1,4 @@
-from bts import *
+from Bts import *
 import json
 import os
 from dotenv import load_dotenv
@@ -46,7 +46,7 @@ def resetUsers(data):
     for allBts in IPS:
         print (allBts)
         bts = Bts(allBts, 'api', '1017230619')
-        users = bts.getActiveUsers()
+        users = bts.getPppActiveUsers()
         users = list(users)
         user = []
         name=[]
@@ -131,7 +131,7 @@ def getActiveDeptor(query=None):
     if(query==None):
         for allBts in IPS:
             bts = Bts(allBts, 'api', '1017230619')
-            data = bts.getAddress_List()
+            data = bts.getAddressList()
 
             addressOnMora = []
             for items in data:
@@ -142,7 +142,7 @@ def getActiveDeptor(query=None):
 
 
 
-            active_users = bts.getActiveUsers()
+            active_users = bts.getPppActiveUsers()
             usersOnMora = []
 
             for x in active_users:
