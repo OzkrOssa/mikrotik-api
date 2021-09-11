@@ -68,7 +68,7 @@ def resetUsers(data):
 
         for c in user:
             for j in c:
-                bts.removeActiveUsers(j)
+                bts.removePppActiveUsers(j)
 
 def defaultProfile():
     defaultData =[]
