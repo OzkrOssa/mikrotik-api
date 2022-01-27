@@ -46,7 +46,7 @@ def resetUsers(data):
 
     for allBts in IPS:
         print (allBts)
-        bts = Bts(allBts, 'api', '1017230619')
+        bts = Bts(allBts, os.getenv('API_USER'), os.getenv('API_KEY'))
         users = bts.getPppActiveUsers()
         users = list(users)
         user = []
@@ -131,7 +131,7 @@ def getActiveDeptor(query=None):
     morososList = []
     if(query==None):
         for allBts in IPS:
-            bts = Bts(allBts, 'api', '1017230619')
+            bts = Bts(allBts, os.getenv('API_USER'), os.getenv('API_KEY'))
             data = bts.getAddressList()
 
             addressOnMora = []
