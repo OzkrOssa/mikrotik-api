@@ -105,12 +105,12 @@ def deptorProfile():
     listado = toconvert['username'].values
     df = pd.DataFrame(listado, columns=['username'])
     test = df.dropna()
-    test.to_excel('morosos1.xlsx', sheet_name='morosos')
-    archivo_excel = pd.read_excel('morosos1.xlsx')
+    test.to_excel('morosos.xlsx', sheet_name='morosos')
+    archivo_excel = pd.read_excel('morosos.xlsx')
     lista = archivo_excel['username'].values
     users_list = lista.tolist()
     for allBts in IPS:
-        bts = Bts(allBts, 'api', '1017230619')
+        bts = Bts(allBts, os.getenv('API_USER'), os.getenv('API_KEY'))
         if (bts):
             for user in users_list:
                 bts.setProfile('Morosos', user)
