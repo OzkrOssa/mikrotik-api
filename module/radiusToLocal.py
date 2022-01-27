@@ -1,4 +1,4 @@
-from bts import *
+from Bts import *
 import os
 from dotenv import load_dotenv
 
