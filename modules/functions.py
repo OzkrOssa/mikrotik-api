@@ -40,61 +40,63 @@ def resetUsers(data):
                 bts.removePppActiveUsers(j)
 
 def defaultProfile():
-    defaultData =[]
-    toconvert = pd.read_excel('habilitar.xlsx')
-    listado = toconvert['username'].values
-    df = pd.DataFrame(listado, columns=['username'])
-    test = df.dropna()
-    test.to_excel('habilitar1.xlsx', sheet_name='habilitar')
-    archivo_excel = pd.read_excel('habilitar1.xlsx')
-    lista = archivo_excel['username'].values
-    users_list = lista.tolist()
-    for allBts in IPS:
-        bts = Bts(allBts, 'api', '1017230619')
-        if (bts):
-            for users in users_list:
-                bts.setProfile('default', users)
+    print('default')
+    # defaultData =[]
+    # toconvert = pd.read_excel('habilitar.xlsx')
+    # listado = toconvert['username'].values
+    # df = pd.DataFrame(listado, columns=['username'])
+    # test = df.dropna()
+    # test.to_excel('habilitar1.xlsx', sheet_name='habilitar')
+    # archivo_excel = pd.read_excel('habilitar1.xlsx')
+    # lista = archivo_excel['username'].values
+    # users_list = lista.tolist()
+    # for allBts in IPS:
+    #     bts = Bts(allBts, 'api', '1017230619')
+    #     if (bts):
+    #         for users in users_list:
+    #             bts.setProfile('default', users)
             
-        else:
-            print('Error')
+    #     else:
+    #         print('Error')
         
-    for x in users_list:
-        defaultData.append({
-            'pppoe':x,
-            'creation-time':dateTime
-        }) 
+    # for x in users_list:
+    #     defaultData.append({
+    #         'pppoe':x,
+    #         'creation-time':dateTime
+    #     }) 
         
         
-    resetUsers('habilitar')
-    toJson(defaultData,'Default')
+    # resetUsers('habilitar')
+    # toJson(defaultData,'Default')
 
 def deptorProfile():
-    finalData=[]
-    toconvert = pd.read_excel('morosos.xlsx')
-    listado = toconvert['username'].values
-    df = pd.DataFrame(listado, columns=['username'])
-    test = df.dropna()
-    test.to_excel('morosos1.xlsx', sheet_name='morosos')
-    archivo_excel = pd.read_excel('morosos1.xlsx')
-    lista = archivo_excel['username'].values
-    users_list = lista.tolist()
-    for allBts in IPS:
-        bts = Bts(allBts, 'api', '1017230619')
-        if (bts):
-            for user in users_list:
-                bts.setProfile('Morosos', user)
+    print('deptor')
+    # finalData=[]
+    # toconvert = pd.read_excel('morosos.xlsx')
+    # listado = toconvert['username'].values
+    # df = pd.DataFrame(listado, columns=['username'])
+    # test = df.dropna()
+    # test.to_excel('morosos1.xlsx', sheet_name='morosos')
+    # archivo_excel = pd.read_excel('morosos1.xlsx')
+    # lista = archivo_excel['username'].values
+    # users_list = lista.tolist()
+    # for allBts in IPS:
+    #     bts = Bts(allBts, 'api', '1017230619')
+    #     if (bts):
+    #         for user in users_list:
+    #             bts.setProfile('Morosos', user)
 
-        else:
-            print('Error')
-    for x in users_list:
-        finalData.append({
-            'pppoe':x,
-            'creation-time':dateTime
-        })  
+    #     else:
+    #         print('Error')
+    # for x in users_list:
+    #     finalData.append({
+    #         'pppoe':x,
+    #         'creation-time':dateTime
+    #     })  
 
-    resetUsers('morosos')
-    toJson(finalData,'Morosos')
-    print(finalData)
+    # resetUsers('morosos')
+    # toJson(finalData,'Morosos')
+    # print(finalData)
 
 def getActiveDeptor(query=None):
     morososList = []

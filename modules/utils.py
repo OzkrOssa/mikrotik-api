@@ -33,5 +33,3 @@ def toJson(data,fileName):
     dirPathExport = str(Path.home()+'/Documents')
     with open(os.path.join(dirPathExport, (fileName+".json")), 'w') as file:
                 json.dump(data, file)
-
-print (os.getenv(TITLE))
