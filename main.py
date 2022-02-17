@@ -1,28 +1,54 @@
 #!/usr/bin/python3
 
 import click
-from modules.functions import defaultProfile,deptorProfile,testing
-from pathlib import Path
-import os
+import ast
 
-@click.command()
-@click.option('-p', '--profile',default='default', help='Perfiles (morosos-default)')
-@click.option('-n', '--name',default='habilitar', help='Nombre del archivo')
-@click.option('-d', '--dirname',default='Documents',help='Directorio del archivo a leer (Documents, Desktop, Downloads) por defecto es Documents')
+class GroupExt(click.Group):
+    def add_command(self, cmd, name=None):
+        click.Group.add_command(self, cmd, name=name)
+        for param in self.params:
+            cmd.params.append(param)
+
+class PythonLiteralOption(click.Option):
+    def type_cast_value(self, ctx, value):
+        try:
+            return ast.literal_eval(value)
+        except:
+            raise click.BadParameter(value)
+
+
+@click.group()
+def byExcel():
+    pass
+
+
+@byExcel.command()
+@click.argument('profile')
+@click.option('-d','--dir', default='Documents', help='Directorio donde se encuentra el archivo excel')
+@click.option('-f','--file', default='Documents', help='Nombre del archivo excel')
+def fromExcel(profile, dir, file):
+    print ('setProfile', profile,dir, file)
+
+
+@click.group()
+def bySQL():
+    pass
+
+@bySQL.command()
+@click.argument('profile')
+@click.option('-id','--id',help='Directorio donde se encuentra el archivo excel')
+@click.option("--format", multiple=True,default=[])
+@click.option('-f','--file', default='Documents', help='Nombre del archivo excel')
+def fromSQL(profile, id, file, format):
+    print ('setSQL', file, id, profile)
 
 
 
-def main (profile, name, dirname):
-    dirPath = (Path.home() / dirname)
-    if profile == 'default':
-        defaultProfile(dirPath,name)
-        #testing(dirPath,name)
-    elif profile == 'morosos':
-        deptorProfile(dirPath,name)
-    else:
-        print('Perfil no valido, Intente Nuevamente')
+@click.command(cls=click.CommandCollection, sources=[byExcel, bySQL])
+def cli():
+    print ('cli')
 
 
 
 if __name__ == '__main__':
-    main()
+    cli(obj={})
