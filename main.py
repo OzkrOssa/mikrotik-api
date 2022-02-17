@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from cgi import test
 import click
 import ast
 
@@ -9,12 +10,6 @@ class GroupExt(click.Group):
         for param in self.params:
             cmd.params.append(param)
 
-class PythonLiteralOption(click.Option):
-    def type_cast_value(self, ctx, value):
-        try:
-            return ast.literal_eval(value)
-        except:
-            raise click.BadParameter(value)
 
 
 @click.group()
@@ -36,11 +31,11 @@ def bySQL():
 
 @bySQL.command()
 @click.argument('profile')
-@click.option('-id','--id',help='Directorio donde se encuentra el archivo excel')
-@click.option("--format", multiple=True,default=[])
+@click.option('-i','--id', help='Codigo del abonado', multiple=True)
 @click.option('-f','--file', default='Documents', help='Nombre del archivo excel')
-def fromSQL(profile, id, file, format):
-    print ('setSQL', file, id, profile)
+
+def fromSQL(profile, id, file):
+    data = list(map(int, list(id)))
 
 
 
