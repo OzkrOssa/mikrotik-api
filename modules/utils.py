@@ -1,14 +1,7 @@
 import os
-from dotenv import load_dotenv
 from datetime import datetime
 from pathlib import Path
 import json
-
-load_dotenv()
-
-IPS = [
-        '10.99.99.13'    
-    ]
 
 
 dateTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
