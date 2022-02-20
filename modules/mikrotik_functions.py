@@ -1,6 +1,7 @@
 from mikrotik.Bts import *
 import pandas as pd
-from modules.utils import IPS,dateTime,toJson
+from modules.utils import dateTime,toJson
+from modules.env_variables import MIKROTIK_IPS,API_USER,API_KEY
 import os
 
 
@@ -10,9 +11,9 @@ def resetUsers(data):
     pd.DataFrame(toconvert, columns=['username']).dropna()
     users_list = toconvert.tolist()
 
-    for allBts in IPS:
+    for allBts in MIKROTIK_IPS:
         print (allBts)
-        bts = Bts(allBts, 'api', '1017230619')
+        bts = Bts(allBts, API_USER, API_KEY)
         users = bts.getPppActiveUsers()
         users = list(users)
         user = []
@@ -44,8 +45,8 @@ def defaultProfile(dirPath,fileName):
     pd.DataFrame(toconvert, columns=['username']).dropna()
     users_list = toconvert.tolist()
     print(users_list)
-    for allBts in IPS:
-         bts = Bts(allBts, 'api', '1017230619')
+    for allBts in MIKROTIK_IPS:
+         bts = Bts(allBts, API_USER, API_KEY)
          if (bts):
              for users in users_list:
                  bts.setProfile('default', users)
@@ -69,8 +70,8 @@ def deptorProfile(dirPath,fileName):
     toconvert = pd.read_excel(os.path.join(dirPath, (fileName+".xlsx")))['username'].values
     pd.DataFrame(toconvert, columns=['username']).dropna()
     users_list = toconvert.tolist()
-    for allBts in IPS:
-         bts = Bts(allBts, 'api', '1017230619')
+    for allBts in MIKROTIK_IPS:
+         bts = Bts(allBts, API_USER, API_KEY)
          if (bts):
              for user in users_list:
                  bts.setProfile('Morosos', user)
@@ -91,8 +92,8 @@ def deptorProfile(dirPath,fileName):
 def getActiveDeptor(query=None):
     morososList = []
     if(query==None):
-        for allBts in IPS:
-            bts = Bts(allBts, 'api', '1017230619')
+        for allBts in MIKROTIK_IPS:
+            bts = Bts(allBts, API_USER, API_KEY)
             data = bts.getAddressList()
 
             addressOnMora = []
