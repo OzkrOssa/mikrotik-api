@@ -7,9 +7,11 @@ import json
 load_dotenv()
 
 IPS = [
-        '10.99.99.13'    
+        os.getenv('BTS_MORON')   
     ]
 
+USER_API = os.getenv('USER_API')
+PASS_API = os.getenv('PASS_API')
 
 dateTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 date = datetime.now().strftime("%d_%m_%Y")
