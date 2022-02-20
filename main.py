@@ -1,49 +1,27 @@
 #!/usr/bin/python3
 
-from cgi import test
 import click
-import ast
+from modules.mikrotik_functions import defaultProfile,deptorProfile
+from pathlib import Path
 
-class GroupExt(click.Group):
-    def add_command(self, cmd, name=None):
-        click.Group.add_command(self, cmd, name=name)
-        for param in self.params:
-            cmd.params.append(param)
-
-
-
-@click.group()
-def byExcel():
-    pass
-
-
-@byExcel.command()
-@click.argument('profile')
-@click.option('-d','--dir', default='Documents', help='Directorio donde se encuentra el archivo excel')
-@click.option('-f','--file', default='habilitar', help='Nombre del archivo excel')
-
-def fromExcel(profile, dir, file):
-    print ('setProfile', profile,dir, file)
-
-
-@click.group()
-def bySQL():
-    pass
-
-@bySQL.command()
-@click.argument('profile')
-@click.option('-i','--id', help='Codigo del abonado', multiple=True)
-
-def fromSQL(profile, id, file):
-    data = list(map(int, list(id)))
+@click.command()
+@click.option('-p', '--profile',default='default', help='Perfiles (morosos-default)')
+@click.option('-n', '--name',default='habilitar', help='Nombre del archivo')
+@click.option('-d', '--dirname',default='Documents',help='Directorio del archivo a leer (Documents, Desktop, Downloads) por defecto es Documents')
 
 
 
-@click.command(cls=click.CommandCollection, sources=[byExcel, bySQL])
-def cli():
-    print ('cli')
+def main (profile, name, dirname):
+    dirPath = (Path.home() / dirname)
+    if profile == 'default':
+        defaultProfile(dirPath,name)
+        #testing(dirPath,name)
+    elif profile == 'morosos':
+        deptorProfile(dirPath,name)
+    else:
+        print('Perfil no valido, Intente Nuevamente')
 
 
 
 if __name__ == '__main__':
-    cli(obj={})
+    main()
