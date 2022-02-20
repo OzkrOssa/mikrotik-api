@@ -1,11 +1,8 @@
 from sqlalchemy import create_engine
-from decouple import config
-
-USER = config('MYSQL_USER')
-PASSWORD = config('MYSQL_PASSWORD')
+from modules.env_variables import DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST
 
 
-engine = create_engine(f'mysql+pymysql://{USER}:{PASSWORD}@35.226.203.230/redplanet')
+engine = create_engine(f'mysql+pymysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}/redplanet')
 conn = engine.connect()
 
 
