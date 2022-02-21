@@ -2,7 +2,9 @@
 
 from cgi import test
 import click
-import ast
+from modules.utils import howToUse
+
+
 
 class GroupExt(click.Group):
     def add_command(self, cmd, name=None):
@@ -14,7 +16,7 @@ class GroupExt(click.Group):
 
 @click.group()
 def byExcel():
-    pass
+    print("Hola")
 
 
 @byExcel.command()
@@ -22,7 +24,7 @@ def byExcel():
 @click.option('-d','--dir', default='Documents', help='Directorio donde se encuentra el archivo excel')
 @click.option('-f','--file', default='habilitar', help='Nombre del archivo excel')
 
-def fromExcel(profile, dir, file):
+def Excel(profile, dir, file):
     print ('setProfile', profile,dir, file)
 
 
@@ -34,16 +36,18 @@ def bySQL():
 @click.argument('profile')
 @click.option('-i','--id', help='Codigo del abonado', multiple=True)
 
-def fromSQL(profile, id, file):
+def SQL(profile, id):
     data = list(map(int, list(id)))
+    print (data,type(data))
 
 
 
 @click.command(cls=click.CommandCollection, sources=[byExcel, bySQL])
 def cli():
-    print ('cli')
+    pass
 
 
 
 if __name__ == '__main__':
+    howToUse()
     cli(obj={})
