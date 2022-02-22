@@ -40,6 +40,7 @@ def resetUsers(data):
 
 def defaultProfile(dirPath,fileName):
 
+
     defaultData =[]
     toconvert = pd.read_excel(os.path.join(dirPath, (fileName+".xlsx")))['username'].values
     pd.DataFrame(toconvert, columns=['username']).dropna()
@@ -121,3 +122,52 @@ def getActiveDeptor(query=None):
             morososList.append({'bts':allBts, 'users':usersOnMora})  
 
     toJson(morososList,'Export')
+
+def setProfile(pppoe=[], profile=''):
+
+
+    finalData=[]
+    for allBts in MIKROTIK_IPS:
+        bts = Bts(allBts, API_USER, API_KEY)
+        for i in pppoe:
+            bts.setProfile(profile, i)
+    
+    for x in pppoe:
+         finalData.append({
+             'pppoe':x,
+             'creation-time':dateTime
+         })  
+
+    resetUsersFromPppoe(id)
+    toJson(finalData,profile)
+    print(finalData)
+
+
+def resetUsersFromPppoe(pppoe=[]):
+    for allBts in MIKROTIK_IPS:
+        print (allBts)
+        bts = Bts(allBts, API_USER, API_KEY)
+        users = bts.getPppActiveUsers()
+        users = list(users)
+        user = []
+        name=[]
+
+        for x in users:
+            for i in pppoe:
+                if x['name'] == i:
+                    user.append({
+                    x['id'],
+                    })
+                    name.append({
+                        'ip':allBts,
+                        'name':x['name'],
+                        'creation-time':dateTime
+                    })
+
+        print(name)
+
+        for c in user:
+            for j in c:
+                bts.removePppActiveUsers(j)
+
+        

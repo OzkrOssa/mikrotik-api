@@ -12,14 +12,14 @@ class GroupExt(click.Group):
         for param in self.params:
             cmd.params.append(param)
 
-
+howToUse()
 
 @click.group()
-def byExcel():
-    print("Hola")
+def setProfileFromExcel():
+    pass
 
 
-@byExcel.command()
+@setProfileFromExcel.command()
 @click.argument('profile')
 @click.option('-d','--dir', default='Documents', help='Directorio donde se encuentra el archivo excel')
 @click.option('-f','--file', default='habilitar', help='Nombre del archivo excel')
@@ -29,10 +29,10 @@ def Excel(profile, dir, file):
 
 
 @click.group()
-def bySQL():
+def setProfileFromSQL():
     pass
 
-@bySQL.command()
+@setProfileFromSQL.command()
 @click.argument('profile')
 @click.option('-i','--id', help='Codigo del abonado', multiple=True)
 
@@ -42,12 +42,12 @@ def SQL(profile, id):
 
 
 
-@click.command(cls=click.CommandCollection, sources=[byExcel, bySQL])
+
+@click.command(cls=click.CommandCollection, sources=[setProfileFromExcel, setProfileFromSQL])
 def cli():
     pass
 
 
 
 if __name__ == '__main__':
-    howToUse()
     cli(obj={})
